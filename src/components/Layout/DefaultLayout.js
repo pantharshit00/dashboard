@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
+import classNames from 'classnames'
 import Appbar from '../Appbar'
 import Drawer from '../Drawer'
 
@@ -8,11 +9,12 @@ const drawerWidth = 240
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    minHeight: '100vh',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex'
+    display: 'flex',
+    'font-family': 'Roboto, sans-serif'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -22,7 +24,7 @@ const styles = theme => ({
     })
   },
   appBarShift: {
-    marginLeft: drawerWidth,
+    marginLeft: `${drawerWidth}px !important`,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -37,7 +39,7 @@ const styles = theme => ({
     display: 'none'
   },
   drawerPaper: {
-    position: 'relative',
+    position: 'fixed',
     whiteSpace: 'nowrap',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -65,6 +67,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    marginLeft: '80px',
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3
   }
@@ -84,10 +87,13 @@ class Layout extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div>
+      <div className={classes.root}>
         <Appbar classes={classes} toggleDrawer={this.toggleDrawer} open={this.state.open} />
         <Drawer classes={classes} toggleDrawer={this.toggleDrawer} open={this.state.open} />
-        {this.props.children}
+        <main className={classNames(classes.content, this.state.open && classes.appBarShift)}>
+          <div className={classes.toolbar} />
+          {this.props.children}
+        </main>
       </div>
     )
   }

@@ -5,6 +5,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import IconButton from 'material-ui/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ChartIcon from '@material-ui/icons/Assessment'
 import DraftsIcon from '@material-ui/icons/Drafts'
 import StarIcon from '@material-ui/icons/Star'
@@ -20,9 +21,7 @@ export default class DrawerImpl extends Component {
         open={open}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <IconButton onClick={toggleDrawer}>{open ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
         </div>
         <Divider />
         <List>
